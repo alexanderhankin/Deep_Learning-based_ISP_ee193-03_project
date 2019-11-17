@@ -1,8 +1,8 @@
-# EE193-03 ``Imaging Systems: From Photons to Bits and Back '' Final Project
+# EE193-03 "Imaging Systems: From Photons to Bits and Back" Final Project
 
 Recent research in the image processing literature claims to be able to reproduce an end-to-end
-image processing pipeline using deep learning. For the EE 193-03 ``Imaging Systems: From Photons to
-Bits and Back'' course final project in the Electrical and Computer Engineering Department at Tufts
+image processing pipeline using deep learning. For the EE 193-03 "Imaging Systems: From Photons to
+Bits and Back" course final project in the Electrical and Computer Engineering Department at Tufts
 University, we will reproduce a deep learning-based (DeepISP: https://arxiv.org/abs/1801.06724) image signal processor
 pipeline (using a publicly released dataset) in Python using Keras with a Tensorflow backend and
 compare images processed using DeepISP with images processed using a traditional sequential image
