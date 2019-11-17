@@ -1,5 +1,4 @@
 # EE193-03 "Imaging Systems: From Photons to Bits and Back" Final Project
-=========================================================================
 
 **Team Members:** Alex Hankin, Stam Aleiferis, Alejandro Colina-Valeri, Olive Garst
 
