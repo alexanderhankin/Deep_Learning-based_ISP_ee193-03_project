@@ -1,3 +1,6 @@
+# This is an example CNN implementation tested with MNIST
+# Just to help get familiar with Keras/CNNs
+
 # https://towardsdatascience.com/building-a-convolutional-neural-network-cnn-in-keras-329fbbadc5f5
 
 from keras.datasets import mnist
