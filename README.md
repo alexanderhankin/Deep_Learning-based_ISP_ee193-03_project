@@ -1,4 +1,8 @@
 # EE193-03 "Imaging Systems: From Photons to Bits and Back" Final Project
+=========================================================================
+
+**Team Members:** Alex Hankin, Stam Aleiferis, Alejandro Colina-Valeri, Olive Garst
+
 
 Recent research in the image processing literature claims to be able to reproduce an end-to-end
 image processing pipeline using deep learning. For the EE 193-03 "Imaging Systems: From Photons to
