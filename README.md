@@ -2,7 +2,6 @@
 
 **Team Members:** Alex Hankin, Stam Aleiferis, Alejandro Colina-Valeri, Olive Garst
 
-
 Recent research in the image processing literature claims to be able to reproduce an end-to-end
 image processing pipeline using deep learning. For the EE 193-03 "Imaging Systems: From Photons to
 Bits and Back" course final project in the Electrical and Computer Engineering Department at Tufts
@@ -18,3 +17,11 @@ Color Peak Signal to Noise Ratio (CPSNR), S-CIELAB, and computational complexity
 processed images for the task of the full end-to-end image processing pipeline, we use subjective
 human assessment. 
 
+
+Usage
+-----
+
+Language: python
+Version: 3.x
+
+To run the DeepISP model, use: $ python3 run\_model.py
