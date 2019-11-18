@@ -24,4 +24,4 @@ Usage
 Language: Python  
 Version: 3.x
 
-To run the DeepISP model, use: ```$ python3 run\_model.py```
+To run the DeepISP model, use: ```$ python3 run_model.py```
