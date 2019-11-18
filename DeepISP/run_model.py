@@ -1,9 +1,12 @@
+from model import build_model
+
 # Compiles and trains the model with loss function adapted 
 #   from the one specified in "Scwartz et. al, DeepISP:..."
 
-if __name__ == '__main__':
+## Try running model with mnist
+## Load in mnist data
+def run_mnist():
 
-    # Try running model with mnist
     from keras.datasets import mnist
     #download mnist data and split into train and test sets
     (X_train, y_train), (X_test, y_test) = mnist.load_data()
@@ -18,8 +21,8 @@ if __name__ == '__main__':
     #reshape data to fit model
     X_train = X_train.reshape(60000,28,28,1)
     X_test = X_test.reshape(10000,28,28,1)
-    print size(X_train)
-    print size(X_test)
+    print(size(X_train))
+    print(size(X_test))
     paddings = tf.constant([[2, 10,], [3, 10]])
     tf.pad(X_train, paddings, "CONSTANT")
     tf.pad(X_test, paddings, "CONSTANT")
@@ -34,19 +37,26 @@ if __name__ == '__main__':
     y_test = to_categorical(y_test)
     y_train[0]
     
-    model = build_model(input_shape=(28, 28, 3))
+    return [X_train, X_test, y_train, y_test]
     
-    #compile model using accuracy to measure model performance
-    model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-       
-    #train the model
-    model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=3)
     
-    #predict first 4 images in the test set
-    model.predict(X_test[:4])
+
+if __name__ == '__main__':
+
+    model = build_model(input_shape=(48, 48, 3))
     
-    #actual results for first 4 images in test set
-    y_test[:4]
-    #model.summary()
+    ##compile model using accuracy to measure model performance
+    #model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+        
+    ##train the model
+    #model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=3)
+     
+    ##predict first 4 images in the test set
+    #model.predict(X_test[:4])
+     
+    ##actual results for first 4 images in test set
+    #y_test[:4]
+     
+    model.summary()
     plot_model(model, to_file='model.png', show_shapes=True)
     
