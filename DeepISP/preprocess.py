@@ -27,7 +27,7 @@ for dirname in os.listdir(DATA_PATH):
         shutil.copy(jpg_path, os.path.join(NEW_PATH_Y,dirname+jpg_name)) 
 
 
-# Form X_train, X_test, Y_train, and Y_test
+# Form train and test sets 
 # 'se' and 'me' denote short and medium exposure, respectively
 num_se_files=110
 num_me_files=110
