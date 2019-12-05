@@ -29,8 +29,8 @@ AUTOTUNE = tf.data.experimental.AUTOTUNE
 
 
 PANASONIC_DATA_PATH ='MSR-Demosaicing/Dataset_LINEAR_with_noise/bayer_panasonic'
-DATAX_PATH = os.path.join(os.getcwd(),PANASONIC_DATA_PATH,'input_dem') 
-DATAY_PATH = os.path.join(os.getcwd(),PANASONIC_DATA_PATH,'groundtruth') 
+DATAX_PATH = os.path.join(os.getcwd(),PANASONIC_DATA_PATH,'input_dem')
+DATAY_PATH = os.path.join(os.getcwd(),PANASONIC_DATA_PATH,'groundtruth')
 
 
 # In[6]:
@@ -67,13 +67,13 @@ for i in ['train','test','validation']:
         ds_dict[i] = [int(x) for x in ds_dict[i]]
 
 # step 1: Lists of paths to each training data point and ground truth
-X_train_paths = tf.constant([os.path.join(DATAX_PATH,xname+'.png') for xname in str(ds_dict['train'])]) 
+X_train_paths = tf.constant([os.path.join(DATAX_PATH,xname+'.png') for xname in str(ds_dict['train'])])
 Y_train_paths = tf.constant([os.path.join(DATAY_PATH,yname+'.png') for yname in str(ds_dict['train'])])
 #
-X_test_paths = tf.constant([os.path.join(DATAX_PATH,xname+'.png') for xname in str(ds_dict['test'])]) 
+X_test_paths = tf.constant([os.path.join(DATAX_PATH,xname+'.png') for xname in str(ds_dict['test'])])
 Y_test_paths = tf.constant([os.path.join(DATAY_PATH,yname+'.png') for yname in str(ds_dict['test'])])
 #
-X_val_paths = tf.constant([os.path.join(DATAX_PATH,xname+'.png') for xname in str(ds_dict['validation'])]) 
+X_val_paths = tf.constant([os.path.join(DATAX_PATH,xname+'.png') for xname in str(ds_dict['validation'])])
 Y_val_paths = tf.constant([os.path.join(DATAY_PATH,yname+'.png') for yname in str(ds_dict['validation'])])
 
 
@@ -118,6 +118,8 @@ checkpoint_dir = os.path.dirname(checkpoint_path)
 
 # In[12]:
 
+# Callback that logs training epoch info to csv
+csv_logger = tf.keras.callbacks.CSVLogger('DD_training.log')
 
 # Create a callback that saves the model's weights
 cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
@@ -147,13 +149,13 @@ ll_model.compile(optimizer=optimizer,  # Optimizer
 # In[15]:
 
 
-history =  ll_model.fit(x= ds_train,   
+history =  ll_model.fit(x= ds_train,
               epochs=5000,
               validation_data=ds_val,
               validation_freq=25,
               validation_steps=None, #use all val dataset
               verbose=1,
-              callbacks=[cp_callback])  # Pass callback to training
+              callbacks=[cp_callback, csv_logger])  # Pass callback to training
 
 
 # In[15]:
@@ -164,7 +166,3 @@ with open('DD_history.json', 'w') as fp:
 
 
 # In[ ]:
-
-
-
-
