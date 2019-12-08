@@ -67,14 +67,14 @@ for i in ['train','test','validation']:
         ds_dict[i] = [int(x) for x in ds_dict[i]]
 
 # step 1: Lists of paths to each training data point and ground truth
-X_train_paths = tf.constant([os.path.join(DATAX_PATH,xname+'.png') for xname in str(ds_dict['train'])])
-Y_train_paths = tf.constant([os.path.join(DATAY_PATH,yname+'.png') for yname in str(ds_dict['train'])])
+X_train_paths = tf.constant([os.path.join(DATAX_PATH,str(xname)+'.png') for xname in ds_dict['train']])
+Y_train_paths = tf.constant([os.path.join(DATAY_PATH,str(yname)+'.png') for yname in ds_dict['train']])
 #
-X_test_paths = tf.constant([os.path.join(DATAX_PATH,xname+'.png') for xname in str(ds_dict['test'])])
-Y_test_paths = tf.constant([os.path.join(DATAY_PATH,yname+'.png') for yname in str(ds_dict['test'])])
+X_test_paths = tf.constant([os.path.join(DATAX_PATH,str(xname)+'.png') for xname in ds_dict['test']])
+Y_test_paths = tf.constant([os.path.join(DATAY_PATH,str(yname)+'.png') for yname in ds_dict['test']])
 #
-X_val_paths = tf.constant([os.path.join(DATAX_PATH,xname+'.png') for xname in str(ds_dict['validation'])])
-Y_val_paths = tf.constant([os.path.join(DATAY_PATH,yname+'.png') for yname in str(ds_dict['validation'])])
+X_val_paths = tf.constant([os.path.join(DATAX_PATH,str(xname)+'.png') for xname in ds_dict['validation']])
+Y_val_paths = tf.constant([os.path.join(DATAY_PATH,str(yname)+'.png') for yname in ds_dict['validation']])
 
 
 # In[10]:
