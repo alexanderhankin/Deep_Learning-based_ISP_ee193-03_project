@@ -73,11 +73,10 @@ list_ds_train_Y = tf.data.Dataset.list_files(Y_train_paths, seed=42)
 trainX = list_ds_train_X.map(parse_image_S7_X,num_parallel_calls=AUTOTUNE)  
 trainY = list_ds_train_Y.map(parse_image_S7_Y,num_parallel_calls=AUTOTUNE)
 
-ds_crop_flipped = tf.data.Dataset.zip((trainX,trainY)).repeat(2).map(random_crop_joint,num_parallel_calls=AUTOTUNE).map(horizontal_flip_joint,num_parallel_calls=AUTOTUNE)
-ds_train = (tf.data.Dataset.zip((trainX,trainY)).repeat(2)
+#ds_crop_flipped = tf.data.Dataset.zip((trainX,trainY)).repeat(2).map(random_crop_joint,num_parallel_calls=AUTOTUNE).map(horizontal_flip_joint,num_parallel_calls=AUTOTUNE)
+ds_train = (tf.data.Dataset.zip((trainX,trainY))
              .map(random_crop_joint,num_parallel_calls=AUTOTUNE)
-             .concatenate(ds_crop_flipped)
-             .shuffle(360)
+             .shuffle(100)
              .batch(BATCH_SIZE)
              .prefetch(AUTOTUNE)
            )
@@ -112,8 +111,8 @@ checkpoint_dir = os.path.dirname(checkpoint_path)
 #dim1 = 1024  # training on 1024x1024 patches
 #dim2 = 1024
 #
-dim1 = 500
-dim2 = 500
+dim1 = 256
+dim2 = 256
 N_ll=15
 N_hl=3
 
@@ -163,7 +162,7 @@ ISP_model.compile(optimizer=optimizer,  # Optimizer
 
 
 history =  ISP_model.fit(x= ds_train,
-              epochs=500,
+              epochs=200,
               validation_data=ds_val, # won't be used, not metric passed in compile()
               validation_freq=25,
               validation_steps=None, 

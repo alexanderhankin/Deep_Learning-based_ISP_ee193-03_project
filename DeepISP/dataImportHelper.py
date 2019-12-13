@@ -41,7 +41,7 @@ def preprocess_S7(image):
 
 def random_crop_joint(imageX,imageY):
     imgXY = tf.concat([imageX, imageY], axis=2) #MxNx6
-    XY_C = tf.image.random_crop(imgXY, [500,500,6], seed=0) #crop patch from same location
+    XY_C = tf.image.random_crop(imgXY, [256,256,6], seed=0) #crop patch from same location
     imgX_C = XY_C[:,:,:3]  #split images
     imgY_C = XY_C[:,:,3:]
     return imgX_C,imgY_C
