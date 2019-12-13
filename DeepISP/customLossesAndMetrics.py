@@ -21,10 +21,10 @@ def HL_loss(im1,im2):
     #L1 = im1
     #L2 = im2
     G = tf.reduce_sum(tf.math.abs(tf.math.subtract(L1,L2))) #Global corrections
-    C1, C2 = random_crop(L1,L2)
+    #C1, C2 = random_crop(L1,L2)
     L = tf.image.ssim_multiscale(
-            tf.expand_dims(C1[:,:,:,0],-1),
-            tf.expand_dims(C1[:,:,:,0],-1),
+            tf.expand_dims(L1[:,:,:,0],-1),
+            tf.expand_dims(L2[:,:,:,0],-1),
             1, #max val
             power_factors=[0.2363, 0.1333],
             filter_size=11,
