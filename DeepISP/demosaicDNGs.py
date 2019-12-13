@@ -15,16 +15,17 @@ import os
 import rawpy
 import matplotlib.pyplot as plt
 import glob
-import shutil
+#import shutil
 from PIL import Image
 
 
 # In[2]:
 
 
-BASE_PATH = os.getcwd()
+BASE_PATH = os.path.join(os.getcwd(),'S7-ISP-Dataset-Sorted','S7-ISP-Short-Exposure')
 NEW_PATH_X = os.path.join(BASE_PATH,'X_dem')
 OLD_PATH_X = os.path.join(BASE_PATH,'X')
+OLD_PATH_Y = os.path.join(BASE_PATH,'Y')
 
 
 # In[3]:
@@ -39,7 +40,7 @@ if not os.path.isdir(NEW_PATH_X): os.mkdir(NEW_PATH_X)
 image_paths = glob.glob(OLD_PATH_X+'/'+'*.dng') # full paths to DNGs
 
 
-# In[21]:
+# In[5]:
 
 
 ## Loop through every image in X, demosaic it, save in NEW_PATH_X
