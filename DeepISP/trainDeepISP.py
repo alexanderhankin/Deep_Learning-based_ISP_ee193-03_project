@@ -163,7 +163,7 @@ ISP_model.compile(optimizer=optimizer,  # Optimizer
 
 
 history =  ISP_model.fit(x= ds_train,
-              epochs=700,
+              epochs=500,
               validation_data=ds_val, # won't be used, not metric passed in compile()
               validation_freq=25,
               validation_steps=None, 
