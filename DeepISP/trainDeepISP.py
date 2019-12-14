@@ -25,8 +25,8 @@ import matplotlib.pyplot as plt
 
 
 S7_DATA_PATH ='S7-ISP-Dataset-Sorted/S7-ISP-Short-Exposure'
-DATAX_PATH = os.path.join(os.getcwd(),S7_DATA_PATH,'X_dem') 
-DATAY_PATH = os.path.join(os.getcwd(),S7_DATA_PATH,'Y') 
+DATAX_PATH = os.path.join(os.getcwd(),S7_DATA_PATH,'X_dem_cropped') 
+DATAY_PATH = os.path.join(os.getcwd(),S7_DATA_PATH,'Y_cropped') 
 
 
 # In[4]:
@@ -75,12 +75,13 @@ trainY = list_ds_train_Y.map(parse_image_S7_Y,num_parallel_calls=AUTOTUNE)
 
 #ds_crop_flipped = tf.data.Dataset.zip((trainX,trainY)).repeat(2).map(random_crop_joint,num_parallel_calls=AUTOTUNE).map(horizontal_flip_joint,num_parallel_calls=AUTOTUNE)
 ds_train = (tf.data.Dataset.zip((trainX,trainY))
-             .map(random_crop_joint,num_parallel_calls=AUTOTUNE)
-             .shuffle(100)
              .batch(BATCH_SIZE)
              .prefetch(AUTOTUNE)
              .cache(filename='TODO')
            )
+
+#.map(random_crop_joint,num_parallel_calls=AUTOTUNE)
+#shuffle(100)
 
 
 # In[9]:
