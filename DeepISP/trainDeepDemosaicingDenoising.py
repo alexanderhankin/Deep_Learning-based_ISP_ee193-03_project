@@ -8,7 +8,7 @@ from model import create_low_level_stage
 import os
 import glob
 import tensorflow as tf
-from dataImportHelper import parse_image_MSR, preprocess_MSR
+from dataImportHelper import parse_image_MSR, preprocess_MSR,random_flip_joint
 from customLossesAndMetrics import PSNR_metric
 import json
 
@@ -87,7 +87,9 @@ list_ds_train_Y = tf.data.Dataset.list_files(Y_train_paths, seed=42)
 trainX = list_ds_train_X.map(parse_image_MSR)  #TODO: .map(preprocess_MSR)
 trainY = list_ds_train_Y.map(parse_image_MSR)
 
-ds_train = tf.data.Dataset.zip((trainX,trainY)).batch(BATCH_SIZE)
+ds_flipped = tf.data.Dataset.zip((trainX,trainY)).map(random_flip_joint)
+ds_train = tf.data.Dataset.zip((trainX,trainY)).concatenate(ds_flipped).shuffle(300).batch(BATCH_SIZE).prefetch(AUTOTUNE).cache(filename='TODO')
+             
 ########## Test set ##########
 list_ds_test_X = tf.data.Dataset.list_files(X_test_paths, seed=42) # seed for random but consistent shuffling #TODO: vs ds.shuffle(buffer)  ??
 list_ds_test_Y = tf.data.Dataset.list_files(Y_test_paths, seed=42)
@@ -112,14 +114,14 @@ ds_val = tf.data.Dataset.zip((valX,valY)).batch(BATCH_SIZE)
 
 
 ## Dir to save model progress
-checkpoint_path = "training_DD_1/cp.ckpt"
+checkpoint_path = "training_DD_2/cp.ckpt"
 checkpoint_dir = os.path.dirname(checkpoint_path)
 
 
 # In[12]:
 
 # Callback that logs training epoch info to csv
-csv_logger = tf.keras.callbacks.CSVLogger('DD_training.log')
+csv_logger = tf.keras.callbacks.CSVLogger('DD_training_2.log')
 
 # Create a callback that saves the model's weights
 cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
@@ -161,8 +163,6 @@ history =  ll_model.fit(x= ds_train,
 # In[15]:
 
 
-with open('DD_history.json', 'w') as fp:
-    json.dump(history.history, fp)
 
 
 # In[ ]:
