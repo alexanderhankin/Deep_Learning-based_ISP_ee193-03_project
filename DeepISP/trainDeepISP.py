@@ -79,6 +79,7 @@ ds_train = (tf.data.Dataset.zip((trainX,trainY))
              .shuffle(100)
              .batch(BATCH_SIZE)
              .prefetch(AUTOTUNE)
+             .cache(filename='TODO')
            )
 
 
