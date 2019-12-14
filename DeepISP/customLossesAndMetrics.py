@@ -71,7 +71,7 @@ class MSSSIM(Loss):
     
     def call(self, im1, im2):
         
-        alpha = 0.5
+        alpha = alpha=0.999
         L1 = rgb_to_lab(im1)
         L2 = rgb_to_lab(im2)
         #L1 = im1
