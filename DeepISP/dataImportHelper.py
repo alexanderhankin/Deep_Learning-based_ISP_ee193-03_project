@@ -55,6 +55,12 @@ def random_crop(image):
 def horizontal_flip_joint(imageX,imageY):
     return tf.image.flip_left_right(imageX),tf.image.flip_left_right(imageY) 
 
+def random_flip_joint(imageX,imageY):
+    if tf.math.round(tf.random.uniform([1])) == 1:
+        return tf.image.flip_left_right(imageX),tf.image.flip_left_right(imageY)
+    else:
+        return tf.image.flip_up_down(imageX),tf.image.flip_left_right(imageY)
+    
 
 
 def parse_image(filepath,yftype=None):
