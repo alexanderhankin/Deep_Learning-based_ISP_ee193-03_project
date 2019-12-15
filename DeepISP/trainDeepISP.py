@@ -88,12 +88,12 @@ ds_train = (tf.data.Dataset.zip((trainX,trainY))
 
 
 # Validation set
-list_ds_val_X = tf.data.Dataset.list_files(X_val_paths, seed=42) # seed for random but consistent shuffling #TODO: vs ds.shuffle(buffer)  ??
+'''list_ds_val_X = tf.data.Dataset.list_files(X_val_paths, seed=42) # seed for random but consistent shuffling #TODO: vs ds.shuffle(buffer)  ??
 list_ds_val_Y = tf.data.Dataset.list_files(Y_val_paths, seed=42)
 valX = list_ds_val_X.map(parse_image_S7_X,num_parallel_calls=AUTOTUNE)
 valY = list_ds_val_Y.map(parse_image_S7_Y,num_parallel_calls=AUTOTUNE)
 
-ds_val = tf.data.Dataset.zip((valX,valY)).map(random_crop_joint,num_parallel_calls=AUTOTUNE).batch(BATCH_SIZE)
+ds_val = tf.data.Dataset.zip((valX,valY)).map(random_crop_joint,num_parallel_calls=AUTOTUNE).batch(BATCH_SIZE)'''
 
 
 # ## Training
@@ -113,8 +113,8 @@ checkpoint_dir = os.path.dirname(checkpoint_path)
 #dim1 = 1024  # training on 1024x1024 patches
 #dim2 = 1024
 #
-dim1 = 256
-dim2 = 256
+dim1 = 200
+dim2 = 200
 N_ll=15
 N_hl=3
 
@@ -165,8 +165,8 @@ ISP_model.compile(optimizer=optimizer,  # Optimizer
 
 history =  ISP_model.fit(x= ds_train,
               epochs=200,
-              validation_data=ds_val, # won't be used, not metric passed in compile()
-              validation_freq=25,
+              validation_data=None, # won't be used, not metric passed in compile()
+              validation_freq=None,
               validation_steps=None, 
               verbose=1,
               callbacks=[cp_callback, csv_logger])  # Pass callback to training
