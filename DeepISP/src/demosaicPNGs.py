@@ -1,12 +1,6 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[ ]:
-
-
-## Assumes X (png) and Y(ppg) folders are downloaded 
-# Will create folder X_dem with all contents of X demosaiced (png)
-
+## This script does bilinear interpolation demosaicing for the MSR dataset
+## Will create folder X_dem with all contents of X demosaiced (png)
+## Rawpy does not recognize png as raw format, have to use opencv
 
 import os
 import rawpy
@@ -19,11 +13,11 @@ from PIL import Image
 
 BASE_PATH = os.getcwd()
 NEW_PATH_X = os.path.join(BASE_PATH,'X_dem_MSR')
-OLD_PATH_X = os.path.join(BASE_PATH,'MSR-Demosaicing/Dataset_LINEAR_with_noise/bayer_panasonic/input')
+OLD_PATH_X = os.path.join(BASE_PATH,'MSR-Demosaicing/Dataset_LINEAR_with_noise/bayer_panasonic/input') # change this for canor or panasonic
 
 if not os.path.isdir(NEW_PATH_X): os.mkdir(NEW_PATH_X)
 
-image_paths = glob.glob(OLD_PATH_X+'/'+'*.png') # full paths to DNGs
+image_paths = glob.glob(OLD_PATH_X+'/'+'*.png') # full paths to PNGs
 
 ## Loop through every image in X, demosaic it, save in NEW_PATH_X
 for fpath in image_paths:

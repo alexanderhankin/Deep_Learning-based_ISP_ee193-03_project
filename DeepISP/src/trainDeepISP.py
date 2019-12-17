@@ -1,14 +1,4 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 ## Train DeepISP
-
-
-# In[2]:
-
 
 import tensorflow as tf
 from model import create_complete_model
@@ -20,37 +10,18 @@ import glob
 from numpy import savetxt
 import matplotlib.pyplot as plt
 
-
-# In[3]:
-
-
 S7_DATA_PATH ='S7-ISP-Dataset-Sorted/S7-ISP-Short-Exposure'
 DATAX_PATH = os.path.join(os.getcwd(),S7_DATA_PATH,'X_dem_cropped') 
 DATAY_PATH = os.path.join(os.getcwd(),S7_DATA_PATH,'Y_cropped') 
 
 
-# In[4]:
-
-
 BATCH_SIZE = 1 # In the paper, they use BATCH_SIZE=1. Here, if it is >1 there is a bug. To be fixed
-
-
-# In[5]:
-
 
 tf.random.set_seed(1234)
 
-
-# In[6]:
-
-
 AUTOTUNE = tf.data.experimental.AUTOTUNE
 
-
 # ## Dataset
-
-# In[7]:
-
 
 names = [x.split('/')[-1].split('.')[0] for x in glob.glob(os.path.join(DATAX_PATH,'*.png'))]
 train_names = names[:90]
@@ -62,9 +33,6 @@ X_train_paths = tf.constant([os.path.join(DATAX_PATH,name+'.png') for name in tr
 Y_train_paths = tf.constant([os.path.join(DATAY_PATH,name+'.jpg') for name in train_names])
 X_val_paths = tf.constant([os.path.join(DATAX_PATH,name+'.png') for name in val_names])
 Y_val_paths = tf.constant([os.path.join(DATAY_PATH,name+'.jpg') for name in val_names])
-
-
-# In[8]:
 
 
 # Training set
@@ -83,10 +51,6 @@ ds_train = (tf.data.Dataset.zip((trainX,trainY))
 #.map(random_crop_joint,num_parallel_calls=AUTOTUNE)
 #shuffle(100)
 
-
-# In[9]:
-
-
 # Validation set
 '''list_ds_val_X = tf.data.Dataset.list_files(X_val_paths, seed=42) # seed for random but consistent shuffling #TODO: vs ds.shuffle(buffer)  ??
 list_ds_val_Y = tf.data.Dataset.list_files(Y_val_paths, seed=42)
@@ -98,16 +62,9 @@ ds_val = tf.data.Dataset.zip((valX,valY)).map(random_crop_joint,num_parallel_cal
 
 # ## Training
 
-# In[10]:
-
-
 ## Dir to save model progress
 checkpoint_path = "training_DeepISP_1/cp.ckpt"
 checkpoint_dir = os.path.dirname(checkpoint_path)
-
-
-# In[11]:
-
 
 ## All S7 images have same H*W (3024x4032). Assume all images in dataset have same orientation (use enforce_S7_orientation)
 #dim1 = 1024  # training on 1024x1024 patches
@@ -119,38 +76,20 @@ N_ll=15
 N_hl=3
 
 
-# In[12]:
-
-
 ISP_model = create_complete_model(dim1,dim2,N_ll,N_hl)
-
-
-# In[13]:
-
 
 # Create a callback that saves the model's weights
 cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
                                                  save_weights_only=True,
                                                  verbose=1)
 
-
-# In[14]:
-
-
 # Callback that logs training epoch info to csv
 csv_logger = tf.keras.callbacks.CSVLogger('DeepISP_training.log')
-
-
-# In[15]:
-
 
 optimizer = tf.keras.optimizers.Adam(learning_rate=0.00005,
                                     beta_1=0.9,
                                     beta_2=0.999,
                                     epsilon=1e-08)
-
-
-# In[17]:
 
 
 ISP_model.compile(optimizer=optimizer,  # Optimizer
@@ -159,10 +98,6 @@ ISP_model.compile(optimizer=optimizer,  # Optimizer
               # List of metrics to monitor
               metrics=[])
 
-
-# In[ ]:
-
-
 history =  ISP_model.fit(x= ds_train,
               epochs=200,
               validation_data=None, # won't be used, not metric passed in compile()
@@ -170,21 +105,6 @@ history =  ISP_model.fit(x= ds_train,
               validation_steps=None, 
               verbose=1,
               callbacks=[cp_callback, csv_logger])  # Pass callback to training
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
 
 
 
