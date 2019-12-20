@@ -35,4 +35,4 @@ To run deepISP inference for the task of joint demosaicing and denoising:
 3. Download and save the MSR dataset in the DeepISP folder
 4. Run 'python3 demosaicPNGs.py'
 5. Run 'jupyter lab'
-6. Open DeepISP/notebooks/DD_test_results.ipynb inide JuputerLab and run the notebook
+6. Open DeepISP/notebooks/DD_test_results.ipynb inside JupyterLab and run the notebook
