@@ -30,8 +30,8 @@ You can download the S7 datset here: https://www.kaggle.com/knn165897/s7-isp-dat
 
 To run deepISP inference for the task of joint demosaicing and denoising:
 
-1. Run 'conda create --name <env> --file spec-files.txt' to create a new conda environment and install the required packages
-2. Run 'conda activate <env>'
+1. Run 'conda create --name [env_name] --file spec-files.txt' to create a new conda environment and install the required packages
+2. Run 'conda activate [env_name]'
 3. Download and save the MSR dataset in the DeepISP folder
 4. Run 'python3 demosaicPNGs.py'
 5. Run 'jupyter lab'
